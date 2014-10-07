@@ -9,16 +9,16 @@ proportion_training = 0.75
 neg_review_ids = movie_reviews.fileids('neg')
 pos_review_ids = movie_reviews.fileids('pos')
 
-neg_words = [movie_reviews.words(fileids = [f]) for f in neg_review_ids]
-pos_words = [movie_reviews.words(fileids = [f]) for f in pos_review_ids]
+neg_reviews = [movie_reviews.words(fileids = [f]) for f in neg_review_ids]
+pos_reviews = [movie_reviews.words(fileids = [f]) for f in pos_review_ids]
 
 # Given a `feature_fn` that converts a sentence into a set of its features,
 # generates a classifier.
 #
 # Returns the classifier, and an estimate of the classifier's accuracy.
 def train_classifier(feature_fn):
-    neg_features = [(feature_fn(neg_word), 'neg') for neg_word in neg_words]
-    pos_features = [(feature_fn(pos_word), 'pos') for pos_word in pos_words]
+    neg_features = [(feature_fn(review), 'neg') for review in neg_reviews]
+    pos_features = [(feature_fn(review), 'pos') for review in pos_reviews]
 
     # The index at which we split the features, where things before this index
     # are training data, and the rest is testing data.
