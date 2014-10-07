@@ -82,10 +82,14 @@ sorted_by_score = sorted(word_info_scores.items(),
 
 best_words = set([word for word, score in sorted_by_score])
 
-def best_word_feats(words):
+def best_word_features(words):
     return dict([(word, True) for word in words if word in best_words])
 
-print('Classifying based on presence of most informative words')
-classifier, accuracy = train_classifier(best_word_feats)
-print('Estimated accuracy: {}'.format(accuracy))
-classifier.show_most_informative_features()
+classifier, accuracy = train_classifier(best_word_features)
+
+# Given a phrase, what is the sentiment of that phrase?
+#
+# If a phrase is deemed to be positive, the return value will be 'pos', or 'neg'
+# otherwise.
+def phrase_sentiment(phrase):
+    return classifier.classify(best_word_features(phrase.split()))
