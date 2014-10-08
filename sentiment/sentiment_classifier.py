@@ -111,5 +111,5 @@ def best_word_features(words):
 classifier, accuracy = train_classifier(best_word_features)
 
 # Save classifier in separate file - it only needs to be trained once
-with open('naive_bayes.pickle', 'wb') as f
+with open('naive_bayes.pickle', 'wb') as f:
     pickle.dump(classifier, f)

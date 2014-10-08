@@ -24,17 +24,57 @@ __author__ = "Sidd Karamcheti"
 __author__ = "Ulysse Carion"
 
 import pickle
+from nltk.classify import NaiveBayesClassifier
+from string import ascii_letters
+from sentiment_classifier import best_word_features
 
-# Initialize classifier
-classifier = ""
-with open('naive_bayes.pickle') as f:
+with open('naive_bayes.pickle', 'rb') as f:
     classifier = pickle.load(f)
 
+def extract_words(tweet_text):
+    """
+    Return the words in a tweet, not including punctuation.
 
-# Given a phrase, what is the sentiment of that phrase?
-#
-# If a phrase is deemed to be positive, the return value will be 'pos', or 'neg'
-# otherwise.
-def phrase_sentiment(phrase):
-    x = best_word_features(phrase.split())
-    print(classifier.classify(x))
+    >>> extract_words('anything else.....not my job')
+    ['anything', 'else', 'not', 'my', 'job']
+    >>> extract_words('i love my job. #winning')
+    ['i', 'love', 'my', 'job', 'winning']
+    >>> extract_words(('make justin # 1 by tweeting #vma #justinbieber :)'))
+    ['make', 'justin', 'by', 'tweeting', 'vma', 'justinbieber']
+    >>> extract_words("paperclips! they're so awesome, cool, & useful!")
+    ['paperclips', 'they', 're', 'so', 'awesome', 'cool', 'useful']
+    >>> extract_words('@(cat$.on^#$my&@keyboard***@#*')
+    ['cat', 'on', 'my', 'keyboard']
+    """
+    filtered_string = ''.join([l if l in ascii_letters else ' ' for l in tweet_text])
+    return filtered_string.split()
+
+def phrase_sentiment_string(phrase):
+    """
+    Use the Naive Bayes classifier to characterize the sentiment of
+    a given phrase. Uses function extract_words from the trends project
+    to break up a phrase.
+
+    Returns a string 'pos', or 'neg', depending on the sentiment of the phrase.
+
+    >>> phrase_sentiment_string("I love my mom")
+    'pos'
+    >>> phrase_sentiment_string("I hate my mom")
+    'neg'
+    """
+    return classifier.classify(best_word_features(extract_words(phrase)))
+
+def phrase_sentiment_value(phrase):
+    """
+    Characterize the sentiment of a phrase as a single value.
+
+    Returns either 1 or -1 depending on the return value from phrase_sentiment_string.
+    1 if there is a positive sentiment, -1 if there is a negative sentiment.
+
+    >>> phrase_sentiment_value("I love my mom")
+    1
+    >>> phrase_sentiment_value("I hate my mom")
+    -1
+    """
+    return 1 if phrase_sentiment_string(phrase) == 'pos' else -1
+
