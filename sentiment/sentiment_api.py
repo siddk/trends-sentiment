@@ -25,6 +25,11 @@ __author__ = "Ulysse Carion"
 
 import pickle
 
+# Initialize classifier
+classifier = ""
+with open('naive_bayes.pickle') as f:
+    classifier = pickle.load(f)
+
 
 # Given a phrase, what is the sentiment of that phrase?
 #
