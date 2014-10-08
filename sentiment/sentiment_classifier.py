@@ -16,13 +16,13 @@ defined here works for tweets as well.
 __author__ = "Sidd Karamcheti"
 __author__ = "Ulysse Carion"
 
+from nltk.classify import NaiveBayesClassifier
+from nltk.collocations import BigramCollocationFinder
+from nltk.corpus import movie_reviews
+from nltk.metrics import BigramAssocMeasures
+from nltk.probability import FreqDist, ConditionalFreqDist
 import nltk.classify.util
 import pickle
-from nltk.corpus import movie_reviews
-from nltk.classify import NaiveBayesClassifier
-from nltk.probability import FreqDist, ConditionalFreqDist
-from nltk.collocations import BigramCollocationFinder
-from nltk.metrics import BigramAssocMeasures
 
 # Only the `num_words_considered` most informative words are chosen to be
 # considered when finding a phrase's sentiment value.

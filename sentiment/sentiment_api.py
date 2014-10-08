@@ -23,10 +23,10 @@ accurate value).
 __author__ = "Sidd Karamcheti"
 __author__ = "Ulysse Carion"
 
-import pickle
 from nltk.classify import NaiveBayesClassifier
-from string import ascii_letters
 from sentiment_classifier import best_word_features
+from string import ascii_letters
+import pickle
 
 with open('naive_bayes.pickle', 'rb') as f:
     classifier = pickle.load(f)
@@ -78,3 +78,13 @@ def phrase_sentiment_value(phrase):
     """
     return 1 if phrase_sentiment_string(phrase) == 'pos' else -1
 
+def overall_tweet_sentiment(tweet):
+    """
+    Given a tweet, characterize the overall sentiment as a value between 1 and -1, using
+    part-of-speech tagging. Form relationships between the words of a tweet
+    (i.e. "not", "good" -> "not good"), and use the sentiment values of each "mini-phrase"
+    to calculate an average sentiment value for the tweet as a whole.
+
+    Return a number between -1 and 1, depending on the sentiment of a tweet as a whole.
+    """
+    pass
