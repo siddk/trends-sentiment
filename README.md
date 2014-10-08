@@ -10,7 +10,7 @@ In order for things to run smoothly, it is important that you have the following
 2. NLTK, and all its dependencies
 3. NLTK Data, which contain all the training corpora
 
-You may also run into an OSerror while running the train function for the Naive Bayes classifier, in which case you should increase your open file limit to > 2000.
+You may also run into an OS Error while running the train function for the Naive Bayes classifier, in which case you should increase your open file limit to > 2000.
 
 ###sentiment_classifier.py###
 
